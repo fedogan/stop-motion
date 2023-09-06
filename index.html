@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Geen idee</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .film {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 500px;
+        }
+
+        #foto {
+            width: 1040px;
+            height: 630px;
+            margin-top: -50px;
+            z-index: 33;
+        }
+        .buttons {
+            z-index: 6;
+            margin-left: -70px ;
+            margin-top: -320px;
+        }
+        .on-off{
+            position: absolute;
+            margin-left: -950px;
+            margin-top: -355px;
+        }
+        #on, #off {
+            cursor: pointer;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="on-off">
+        <img src="on.png" alt="" id="on" onclick="on();">
+        <img src="off.png" alt="" id="off" onclick="off();">
+    </div>
+    <div class="film">
+        <img src="image/1.jpg" id="foto" class="position-absolute">
+        <img src="tv.jpeg" alt="" class="position-absolute" width="1080" height="720">
+    </div>
+    <div class="buttons">
+    <button onclick="startInterval();">START</button>
+    <button onclick="stopInterval();">STOP</button>
+</div>
+
+
+    <script>
+        var foto = document.getElementById("foto");
+        var i = 1;
+        var frameCount = 205;
+        var stopMotion = null;
+        var tv = document.getElementById("tv");
+
+        // functie om de interval te starten
+        function startInterval() {
+            if (!stopMotion) {
+                stopMotion = setInterval(() => {
+                    foto.src = "image/" + i + ".jpg";
+                    i++;
+
+                    if (i > frameCount) {
+                        i = 1;
+                    }
+                }, 150);
+            }
+        }
+
+        // functie om de interval te stoppen
+        function stopInterval() {
+            clearInterval(stopMotion);
+            stopMotion = null;
+        }
+
+        // checken als interval werkt
+        if (stopMotion !== null) {
+            stopInterval();
+        } else {
+            startInterval();
+        }
+
+        function on() {
+            foto.style.zIndex = 33;
+            startInterval();
+        }
+        function off(){
+            foto.style.zIndex = -1;
+            stopInterval();
+        }
+
+    </script>
+</body>
+
+</html>
